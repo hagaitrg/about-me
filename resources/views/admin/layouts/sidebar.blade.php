@@ -1,6 +1,7 @@
 <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-        <a href="{{route('admin-home')}}">Hagaitrg</a>
+        <img src="{{ asset('img/icons/Hagai_Padoru.png') }}" height="45" width="58">
+        <a href="{{route('admin-home')}}"><strong>Hagaitrg</strong></a>
     </div>
     <ul class="sidebar-menu">
         <li class="menu-header">Dashboard</li>
@@ -15,7 +16,7 @@
             <a href="{{route('admin-skill')}}" class="nav-link"><i class="fas fa-code"></i><span>Skills</span></a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link"><i class="fas fa-tasks"></i><span>Projects</span></a>
+            <a href="{{route('admin-project')}}" class="nav-link"><i class="fas fa-tasks"></i><span>Projects</span></a>
         </li>
         <li class="nav-item">
             <a href="#" class="nav-link"><i class="fas fa-inbox"></i><span>Message</span></a>

@@ -30,7 +30,7 @@
                     <h4>Skills</h4>
                 </div>
                 <div class="card-body">
-                    8
+                    {{$totalSkills}}
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
                     <h4>Projects</h4>
                 </div>
                 <div class="card-body">
-                    4
+                    {{$totalProjects}}
                 </div>
             </div>
         </div>
@@ -73,19 +73,19 @@
                 <h4>About Me</h4>
             </div>
             <div class="card-body">
+                @foreach($abouts as $index => $about)
                 <div class="row d-flex justify-content-center mb-3">
-                    <img src="{{ asset('img/me.jpg') }}" class="position-relative z-index-2 rounded-circle shadow" width="150" height="150" alt="profile-image">
+                    <img src="{{ asset('img/uploads/abouts/'. $about->image) }}" class="position-relative z-index-2 rounded-circle shadow" width="150" height="150" alt="profile-image">
                 </div>
                 <div class="row d-flex justify-content-center">
-                    <h3 class="mb-3">Disa Hagai Tarigan</h3>
+                    <h3 class="mb-3">{{$about->name}}</h3>
                 </div>
                 <div class="row d-flex justify-content-center">
                     <p class="text-lg mb-0""> 
-                                I am an undergraduate student majoring in Information Systems at Telkom
-                                University, Bandung. A learner of all time, always learning new and
-                                interesting things, especially in Software Development.
+                    {{$about->desc}}
                         </p>
                     </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -99,28 +99,25 @@
                                 <table class="table table-striped mb-0">
                                     <thead>
                                         <tr>
-                                            <th>Title</th>
+                                            <th>Name</th>
                                             <th>Description</th>
                                             <th>Link</th>
-                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach($projects as $index => $project)
                                         <tr>
                                             <td>
-                                                Joki.in
+                                                {{$project->name}}
                                             </td>
                                             <td>
-                                                dslkafjaklsdfjklsadjfkldasjlkfjadskljfldkasjlkfjadslkfj
+                                                {{$project->desc}}
                                             </td>
                                             <td>
-                                                <a href="#" class="font-weight-600">joki-in</a>
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a>
+                                                <a href="{{$project->link}}" class="font-weight-600">{{$project->name}}</a>
                                             </td>
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -136,26 +133,12 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
+                                @foreach($skills as $index => $skill)
                                 <div class="col text-center">
                                     <div class="browser browser-chrome"></div>
-                                    <div class="mt-2 font-weight-bold">Chrome</div>
+                                    <div class="mt-2 font-weight-bold">{{$skill->name}}</div>
                                 </div>
-                                <div class="col text-center">
-                                    <div class="browser browser-firefox"></div>
-                                    <div class="mt-2 font-weight-bold">Firefox</div>
-                                </div>
-                                <div class="col text-center">
-                                    <div class="browser browser-safari"></div>
-                                    <div class="mt-2 font-weight-bold">Safari</div>
-                                </div>
-                                <div class="col text-center">
-                                    <div class="browser browser-opera"></div>
-                                    <div class="mt-2 font-weight-bold">Opera</div>
-                                </div>
-                                <div class="col text-center">
-                                    <div class="browser browser-internet-explorer"></div>
-                                    <div class="mt-2 font-weight-bold">IE</div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

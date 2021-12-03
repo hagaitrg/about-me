@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Skill;
+use App\Models\Project;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 
-class SkillController extends Controller
+class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class SkillController extends Controller
      */
     public function index()
     {
-        $skills = Skill::all();
+        $projects = Project::all();
 
-        return view('admin.skills.admin-skill', compact('skills'));
+        return view('admin.projects.admin-projects', compact('projects'));
     }
 
     /**
@@ -40,33 +40,33 @@ class SkillController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|min:3|max:255',
-            'tag_id' => 'required|not_in:0|integer',
-            'link' => 'required|unique:skills|max:255',
-            'img' => 'required|mimes:jpg,jpeg,png,svg'
+            'name' => 'required|min:1',
+            'desc' => 'required|max:255',
+            'link' => 'required|unique:projects|max:255',
+            'img' => 'mimes:jpg,jpeg,png,svg'
         ]);
 
         $img = $request->name . '-img' . '.' . $request->img->extension();
 
-        $request->img->move(public_path('img/uploads/skills'), $img);
+        $request->img->move(public_path('img/uploads/projects'), $img);
 
         $request->image = $img;
 
-        $skill = Skill::create([
+        $project = Project::create([
             'name' => $request->name,
-            'tag_id' => $request->tag_id,
+            'desc' => $request->desc,
             'link' => $request->link,
             'image' => $img
         ]);
 
-        if ($skill) {
-            Toastr::success('Success add about', 'Notification');
+        if ($project) {
+            Toastr::success('Success add project', 'Notification');
 
-            return redirect('/admin/skill/');
+            return redirect('/admin/project/');
         } else {
-            Toastr::danger('Failed add about', 'Notification');
+            Toastr::danger('Failed add project', 'Notification');
 
-            return redirect('/admin/skill/');
+            return redirect('/admin/project/');
         }
     }
 
@@ -89,9 +89,9 @@ class SkillController extends Controller
      */
     public function edit($id)
     {
-        $skill = Skill::find($id);
+        $project = Project::find($id);
 
-        return view('admin.skills.edit-skill', compact('skill'));
+        return view('admin.projects.edit-project', compact('project'));
     }
 
     /**
@@ -104,56 +104,56 @@ class SkillController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'name' => 'min:3|max:255',
-            'tag_id' => 'not_in:0|integer',
-            'link' => 'unique:skills|max:255',
+            'name' => 'required|min:1',
+            'desc' => 'required|max:255',
+            'link' => 'required|unique:projects|max:255',
             'img' => 'mimes:jpg,jpeg,png,svg'
         ]);
 
         if ($request->img == null) {
-            $update = Skill::where('id', $id)->update([
+            $update = Project::where('id', $id)->update([
                 'name' => $request->name,
-                'tag_id' => $request->tag_id,
+                'desc' => $request->desc,
                 'link' => $request->link,
             ]);
 
             if ($update) {
-                Toastr::success('Success update skill', 'Notification');
+                Toastr::success('Success update project', 'Notification');
 
-                return redirect('/admin/skill/');
+                return redirect('/admin/project/');
             } else {
-                Toastr::danger('Failed update skill', 'Notification');
+                Toastr::danger('Failed update project', 'Notification');
 
-                return redirect('/admin/skill/');
+                return redirect('/admin/project/');
             }
         } else {
-            $skill = Skill::find($id);
+            $project = Project::find($id);
 
-            $img_path = public_path('img/uploads/skills/' . $skill->image);
+            $img_path = public_path('img/uploads/projects/' . $project->image);
 
             unlink($img_path);
 
             $updateImg = $request->name . '-img' . '.' . $request->img->extension();
 
-            $request->img->move(public_path('img/uploads/skills/'), $updateImg);
+            $request->img->move(public_path('img/uploads/projects/'), $updateImg);
 
             $request->image = $updateImg;
 
-            $update = $skill->update([
+            $update = $project->update([
                 'name' => $request->name,
-                'tag_id' => $request->tag_id,
+                'desc' => $request->desc,
                 'link' => $request->link,
                 'image' => $updateImg
             ]);
 
             if ($update) {
-                Toastr::success('Success update skill', 'Notification');
+                Toastr::success('Success update project', 'Notification');
 
-                return redirect('/admin/skill/');
+                return redirect('/admin/project/');
             } else {
-                Toastr::danger('Failed update skill', 'Notification');
+                Toastr::danger('Failed update project', 'Notification');
 
-                return redirect('/admin/skill/');
+                return redirect('/admin/project/');
             }
         }
     }
@@ -166,22 +166,22 @@ class SkillController extends Controller
      */
     public function destroy($id)
     {
-        $skill = Skill::find($id);
+        $project = Project::find($id);
 
 
-        if ($skill) {
-            $img_path = public_path('img/uploads/skills/' . $skill->image);
+        if ($project) {
+            $img_path = public_path('img/uploads/projects/' . $project->image);
 
             unlink($img_path);
-            $skill->delete();
+            $project->delete();
 
-            Toastr::success('Success delete skill', 'Notification');
+            Toastr::success('Success delete project', 'Notification');
 
-            return redirect('/admin/skill/');
+            return redirect('/admin/project/');
         } else {
-            Toastr::danger('Failed delete skill', 'Notification');
+            Toastr::danger('Failed delete project', 'Notification');
 
-            return redirect('/admin/skill/');
+            return redirect('/admin/project/');
         }
     }
 }
