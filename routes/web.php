@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AboutController;
+use App\Http\Controllers\Admin\SkillController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,5 +38,21 @@ Route::prefix('admin')->group(function () {
         Route::patch('/update-about/{id}', [AboutController::class, 'update']);
 
         Route::delete('/delete-about/{id}', [AboutController::class, 'destroy']);
+    });
+
+    Route::prefix('skill')->group(function () {
+        Route::get('/', [SkillController::class, 'index'])->name('admin-skill');
+
+        Route::get('/add-skill', function () {
+            return view('admin.skills.add-skill');
+        })->name('add-skill');
+
+        Route::post('/store-skill', [SkillController::class, 'store']);
+
+        Route::get('/edit-skill/{id}', [SkillController::class, 'edit']);
+
+        Route::patch('/update-skill/{id}', [SkillController::class, 'update']);
+
+        Route::delete('/delete-skill/{id}', [SkillController::class, 'destroy']);
     });
 });
