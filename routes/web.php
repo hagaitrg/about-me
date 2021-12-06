@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AboutController;
+use App\Http\Controllers\Admin\CvController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\SkillController;
@@ -70,5 +71,21 @@ Route::prefix('admin')->group(function () {
         Route::patch('/update-project/{id}', [ProjectController::class, 'update']);
 
         Route::delete('/delete-project/{id}', [ProjectController::class, 'destroy']);
+    });
+
+    Route::prefix('cv')->group(function () {
+        Route::get('/', [CvController::class, 'index'])->name('admin-cv');
+
+        Route::get('/add-cv', function () {
+            return view('admin.cv.add-cv');
+        })->name('add-cv');
+
+        Route::post('/store-cv', [CvController::class, 'store']);
+
+        Route::get('/edit-cv/{id}', [CvController::class, 'edit']);
+
+        Route::patch('/update-cv/{id}', [CvController::class, 'update']);
+
+        Route::delete('/delete-cv/{id}', [CvController::class, 'destroy']);
     });
 });
