@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\About;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AboutController extends Controller
 {
@@ -60,7 +61,8 @@ class AboutController extends Controller
             'desc' => $request->desc,
             'phone' => $request->phone,
             'link' => $request->link,
-            'image' => $img
+            'image' => $img,
+            'user_id'=> Auth::user()->id;
         ]);
 
         if ($about) {
