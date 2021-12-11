@@ -11,6 +11,6 @@ class Skill extends Model
 
     public function tag()
     {
-        return $this->belongsTo(SkillTag::class);
+        return $this->belongsTo(SkillTag::class, 'tag_id');
     }
 }

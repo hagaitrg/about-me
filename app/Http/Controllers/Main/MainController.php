@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
+use App\Models\About;
+use App\Models\Project;
+use App\Models\Skill;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -14,7 +17,13 @@ class MainController extends Controller
      */
     public function index()
     {
-        //
+        $abouts = About::first();
+        $skills = Skill::all();
+        $projects = Project::all();
+
+        // dd($abouts, $skills, $projects);
+
+        return view('main.index', compact('abouts', 'skills', 'projects'));
     }
 
     /**

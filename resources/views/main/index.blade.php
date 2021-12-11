@@ -8,20 +8,18 @@
             <div class="row">
                 <div class="col-12 mx-auto">
                     <div class="mt-n8 mt-md-n9 text-center">
-                        <img class="avatar avatar-xxl shadow-xl position-relative z-index-2" src="{{ asset('img/me.jpg') }}" alt="bruce" loading="lazy">
+                        <img class="avatar avatar-xxl shadow-xl position-relative z-index-2" src="{{ asset('img/uploads/abouts/'. $abouts->image) }}" alt="bruce" loading="lazy">
                     </div>
                     <div class="row py-5">
                         <div class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mx-auto">
                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h3 class="mb-0">Disa Hagai Tarigan</h3>
+                                <h3 class="mb-0">{{$abouts->name}}</h3>
                                 <div class="d-block">
                                     <a href="" class="btn btn-sm btn-outline-info text-nowrap mb-0"><i class="material-icons opacity-6 text-md">file_download</i> My CV</a>
                                 </div>
                             </div>
                             <p class="text-lg mb-0">
-                                I am an undergraduate student majoring in Information Systems at Telkom
-                                University, Bandung. A learner of all time, always learning new and
-                                interesting things, especially in Software Development. <br><a href="https://www.linkedin.com/in/disa-h-5b6436141/" target="_blank" class="text-info icon-move-right">More about me
+                                {{$abouts->desc}} <br><a href="{{$abouts->link}}" target="_blank" class="text-info icon-move-right">More about me
                                     <i class="fas fa-arrow-right text-sm ms-1"></i>
                                 </a>
                             </p>
@@ -42,79 +40,27 @@
                 </div>
             </div>
             <div class="row">
-                <h4 class="mb-3 text-light">Web Development</h4>
+                @foreach($skills as $skill)
+                <h4 class="mb-3 text-light">{{$skill->tag->name}}</h4>
                 <div class="col-lg-3 col-12 mb-3">
                     <div class="card card-profile">
                         <div class="row">
                             <div class="col-lg-3 col-md-3 col-3">
-                                <a href="https://en.wikipedia.org/wiki/HTML" target="_blank">
+                                <a href="{{$skill->link}}" target="_blank">
                                     <div class="p-3 pe-md-0">
-                                        <img class="border-radius-md" src="{{ asset('img/html.png') }}" width="50" height="50" alt="image">
+                                        <img class="border-radius-md" src="{{ asset('img/uploads/skills/'. $skill->image) }}" width="50" height="50" alt="image">
                                     </div>
                                 </a>
                             </div>
                             <div class="col-lg-9 col-md-9 col-9 my-auto">
                                 <div class="card-body ps-lg-0">
-                                    <h5 class="mb-0">HTML</h5>
+                                    <h5 class="mb-0">{{$skill->name}}</h5>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-12 mb-3">
-                    <div class="card card-profile">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-3 col-3">
-                                <a href="https://en.wikipedia.org/wiki/CSS" target="_blank">
-                                    <div class="p-3 pe-md-0">
-                                        <img class=" border-radius-md" src="{{ asset('img/css.png') }}" width="50" height="50" alt="image">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-lg-9 col-md-9 col-9 my-auto">
-                                <div class="card-body ps-lg-0">
-                                    <h5 class="mb-0">CSS</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-12 mb-3">
-                    <div class="card card-profile">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-3 col-3">
-                                <a href="https://en.wikipedia.org/wiki/JavaScript" target="_blank">
-                                    <div class="p-3 pe-md-0">
-                                        <img class=" border-radius-md" src="{{ asset('img/js.jpg') }}" width="50" height="50" alt="image">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-lg-9 col-md-9 col-9 my-auto">
-                                <div class="card-body ps-lg-0">
-                                    <h5 class="mb-0">Javascript</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-12 mb-3">
-                    <div class="card card-profile">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-3 col-3">
-                                <a href="https://en.wikipedia.org/wiki/PHP" target="_blank">
-                                    <div class="p-3 pe-md-0">
-                                        <img class=" border-radius-md" src="{{ asset('img/php.svg') }}" width="50" height="50" alt="image">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-lg-9 col-md-9 col-9 my-auto">
-                                <div class="card-body ps-lg-0">
-                                    <h5 class="mb-0">PHP</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <div class="row">
                 <h4 class="mb-3 mt-5 text-light">Framework</h4>
@@ -262,89 +208,28 @@
                 </div>
             </div>
             <div class="row">
+                @foreach($projects as $index => $project)
                 <div class="col-lg-3 col-md-6 col-sm-12">
                     <div class="card card-plain">
                         <div class="card-header p-0 position-relative">
                             <a class="d-block blur-shadow-image">
-                                <img src="{{ asset('img/ngambis.png') }}" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" width="300" height="153">
+                                <img src="{{ asset('img/uploads/projects/'. $project->image) }}" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" width="300" height="153">
                             </a>
                         </div>
                         <div class="card-body px-0">
                             <h5 class="text-dark font-weight-bold">
-                                Ngambis
+                                {{$project->name}}
                             </h5>
                             <p>
-                                As a full-stack web developer, build a web e-learning to fulfill the big task of Web Application Development. The stack used by Bootstrap 4,
-                                Laravel 7, and MySQL
+                                {{$project->desc}}
                             </p>
-                            <a href="https://github.com/hagaitrg/Ngambis" class="text-info text-sm icon-move-right" target="_blank">Read More
+                            <a href="{{$project->link}}" class="text-info text-sm icon-move-right" target="_blank">Read More
                                 <i class="fas fa-arrow-right text-xs ms-1"></i>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="card card-plain">
-                        <div class="card-header p-0 position-relative">
-                            <a class="d-block blur-shadow-image">
-                                <img src="{{ asset('img/jokiin.png') }}" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" width="300" height="153">
-                            </a>
-                        </div>
-                        <div class="card-body px-0">
-                            <h5 class="text-dark font-weight-bold">
-                                Joki.in
-                            </h5>
-                            <p>
-                                As a full-stack web developer, build a web search service creation assignment to fulfill research lab assignments. The stack used by Bootstrap 4,
-                                PHP and MySQL
-                            </p>
-                            <a href="https://github.com/hagaitrg/joki.in" class="text-info text-sm icon-move-right" target="_blank">Read More
-                                <i class="fas fa-arrow-right text-xs ms-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="card card-plain">
-                        <div class="card-header p-0 position-relative">
-                            <a class="d-block blur-shadow-image">
-                                <img src="{{ asset('img/Lalinmu24.png') }}" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" width="300" height="153">
-                            </a>
-                        </div>
-                        <div class="card-body px-0">
-                            <h5 class="text-dark font-weight-bold">
-                                Lalinmu 24
-                            </h5>
-                            <p>
-                                As a full-stack web developer, build a traffic monitoring website at every crossroads in the city of Bandung for the fulfillment of major tasks in
-                                Software Engineering courses. The stack used by Bootstrap 4, Laravel 8 and MySQL
-                            </p>
-                            <a href="https://github.com/SI-RPL-2021/SI4206-LalinMu24" class="text-info text-sm icon-move-right" target="_blank">Read More
-                                <i class="fas fa-arrow-right text-xs ms-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="card card-plain">
-                        <div class="card-header p-0 position-relative">
-                            <a class="d-block blur-shadow-image">
-                                <img src="{{ asset('img/pijarBelajarBot.png') }}" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" width="300" height="153">
-                            </a>
-                        </div>
-                        <div class="card-body px-0">
-                            <h5 class="text-dark font-weight-bold">
-                                Pijar Belajar Discord Bot
-                            </h5>
-                            <p>
-                                Develop a bot to help manage roles in Pijar Learn discord. The stack that Python 3 uses
-                            </p>
-                            <a href="https://github.com/hagaitrg/pijarkeun-discord-bot" class="text-info text-sm icon-move-right" target="_blank">Read More
-                                <i class="fas fa-arrow-right text-xs ms-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
