@@ -69,6 +69,8 @@
 
     <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 
+    {!! Toastr::message() !!}
+
 
 </body>
 

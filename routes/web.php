@@ -34,9 +34,7 @@ Route::middleware('auth')->group(function () {
 
             Route::post('/store-about', [AboutController::class, 'store']);
 
-            Route::get('/edit-about/{id}', [AboutController::class, 'edit']);
-
-            Route::patch('/update-about/{id}', [AboutController::class, 'update']);
+            Route::get('/edit-about', [AboutController::class, 'edit'])->name('edit-about');
 
             Route::delete('/delete-about/{id}', [AboutController::class, 'destroy']);
         });

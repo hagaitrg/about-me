@@ -69,7 +69,11 @@
         </div>
     </li>
     <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+            @if($about)
             <img alt="image" src="{{ asset('img/uploads/abouts/' . $about->image) }}" class="rounded-circle mr-1">
+            @else
+            <img alt="image" src="{{ asset('img/avatars/avatar-1.png') }}" class="rounded-circle mr-1">
+            @endif
             <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->name }}</div>
         </a>
         <div class="dropdown-menu dropdown-menu-right">

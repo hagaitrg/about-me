@@ -21,24 +21,23 @@
                 </ul>
             </div>
             @endif
-            <form enctype="multipart/form-data" method="POST" action="/admin/about/update-about/{{$about->id}}">
+            <form enctype="multipart/form-data" method="POST" action="/admin/about/store-about">
                 @CSRF
-                @method('patch')
                 <div class="card-header">
-                    <h4>Edit About Me</h4>
+                    <h4>Proccess About Me</h4>
                 </div>
                 <div class="card-body">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" name="name" value="{{$about->name}}">
-                    </div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea class="form-control" style="height: 100px;" name="desc" value="{{$about->desc}}">{{$about->desc}}</textarea>
+                        <input type="text" class="form-control" name="name" value="{{Auth::user()->name}}" readonly>
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" class="form-control" name="email" value="{{$about->email}}">
+                        <input type="email" class="form-control" name="email" value="{{Auth::user()->email}}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control" style="height: 100px;" name="desc" value="{{$about->desc ?? ''}}">{{$about->desc ?? ''}}</textarea>
                     </div>
                     <div class="form-group">
                         <label>Phone Number</label>
@@ -48,7 +47,7 @@
                                     <i class="fas fa-phone"></i>
                                 </div>
                             </div>
-                            <input type="text" class="form-control phone-number" name="phone" value="{{$about->phone}}">
+                            <input type="text" class="form-control phone-number" name="phone" value="{{$about->phone ?? ''}}">
                         </div>
                     </div>
                     <div class="form-group">
@@ -59,14 +58,14 @@
                                     <i class="fab fa-linkedin"></i>
                                 </div>
                             </div>
-                            <input type="text" class="form-control phone-number" name="link" value="{{$about->link}}">
+                            <input type="text" class="form-control phone-number" name="link" value="{{$about->link ?? ''}}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Image</label>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFile" name="img">
-                            <label class="custom-file-label" for="customFile">{{$about->image}}</label>
+                            <input type="file" class="custom-file-input" value="{{$about->image ?? ''}}" id="customFile" name="img">
+                            <label class="custom-file-label" for="customFile">{{$about->image ?? ''}}</label>
                         </div>
                     </div>
                 </div>

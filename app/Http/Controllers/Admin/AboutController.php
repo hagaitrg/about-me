@@ -42,44 +42,49 @@ class AboutController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|min:3|max:255',
-            'email' => 'required|unique:abouts|max:255',
+            'email' => 'required|max:255',
             'desc' => 'required|max:255',
-            'phone' => 'required|min:12|unique:abouts',
-            'link' => 'required|unique:abouts|max:255',
-            'img' => 'mimes:jpg,jpeg,png,svg'
+            'phone' => 'required|min:12',
+            'link' => 'required|max:255',
+            'img' => 'required|mimes:jpg,jpeg,png,svg'
         ]);
 
         $user = Auth::user();
 
-        if (About::where('user_id', $user->id)->get('image')->exists()) {
-            $imgAbout = About::where('user_id', $user->id)->get('image');
-            $img_path = public_path('img/uploads/projects/' . $imgAbout->image);
+        if (About::where('user_id', $user->id)->get('image')->count() > 0) {
+            $imgAbout = About::where('user_id', $user->id)->value('image');
+            $img_path = public_path('img/uploads/abouts/' . $imgAbout);
 
             unlink($img_path);
         }
 
-        $img = time() . $user->name . '-img.' . $request->img->extension();
+        $img = time() . '-' . $user->name . '-img.' . $request->img->extension();
 
         $request->img->move(public_path('img/uploads/abouts'), $img);
 
         $request->image = $img;
 
-        $about = About::where('user_id', $user->id)->updateOrCreate([
-            'name' => $user->name,
-            'email' => $user->email,
-            'desc' => $request->desc,
-            'phone' => $request->phone,
-            'link' => $request->link,
-            'image' => $img,
-            'user_id' => $user->id,
-        ]);
+        $about = About::updateOrCreate(
+            [
+                'user_id' => $user->id,
+            ],
+
+            [
+                'name' => $user->name,
+                'email' => $user->email,
+                'desc' => $request->desc,
+                'phone' => $request->phone,
+                'link' => $request->link,
+                'image' => $img,
+            ]
+        );
 
         if ($about) {
-            Toastr::success('Success updateOrCreate about', 'Notification');
+            Toastr::success('Success Update about', 'Notification', ["positionClass" => "toast-bottom-right"]);
 
             return redirect('/admin/about/');
         } else {
-            Toastr::danger('Failed updateOrCreate about', 'Notification');
+            Toastr::danger('Failed Update about', 'Notification', ["positionClass" => "toast-bottom-right"]);
 
             return redirect('/admin/about/');
         }
@@ -102,8 +107,13 @@ class AboutController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
+        $user = Auth::user();
+
+        $about = About::where('user_id', $user->id)->first();
+
+        return view('admin.abouts.about', compact('about'));
     }
 
     /**
@@ -125,11 +135,12 @@ class AboutController extends Controller
      */
     public function destroy($id)
     {
-        $about = About::find($id);
-
+        $user  =  Auth::user();
+        $about = About::where('user_id', $user->id);
 
         if ($about) {
-            $img_path = public_path('img/uploads/abouts/' . $about->image);
+            $aboutImage = $about->value('image');
+            $img_path = public_path('img/uploads/abouts/' . $aboutImage);
 
             unlink($img_path);
             $about->delete();
