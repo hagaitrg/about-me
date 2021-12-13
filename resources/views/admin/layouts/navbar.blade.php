@@ -69,8 +69,8 @@
         </div>
     </li>
     <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-            @if($about)
-            <img alt="image" src="{{ asset('img/uploads/abouts/' . $about->image) }}" class="rounded-circle mr-1">
+            @if(Auth::user()->about->image)
+            <img alt="image" src="{{ asset('img/uploads/abouts/' . Auth::user()->about->image) }}" class="rounded-circle mr-1">
             @else
             <img alt="image" src="{{ asset('img/avatars/avatar-1.png') }}" class="rounded-circle mr-1">
             @endif

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Skill;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SkillController extends Controller
 {
@@ -16,7 +17,7 @@ class SkillController extends Controller
      */
     public function index()
     {
-        $skills = Skill::all();
+        $skills = Skill::where('user_id', Auth::user()->id)->get();
 
         return view('admin.skills.admin-skill', compact('skills'));
     }
@@ -46,7 +47,7 @@ class SkillController extends Controller
             'img' => 'required|mimes:jpg,jpeg,png,svg'
         ]);
 
-        $img = $request->name . '-img' . '.' . $request->img->extension();
+        $img = $request->name . '-' . Auth::user()->name . '-img' . '.' . $request->img->extension();
 
         $request->img->move(public_path('img/uploads/skills'), $img);
 
@@ -56,15 +57,16 @@ class SkillController extends Controller
             'name' => $request->name,
             'tag_id' => $request->tag_id,
             'link' => $request->link,
-            'image' => $img
+            'image' => $img,
+            'user_id' => Auth::user()->id,
         ]);
 
         if ($skill) {
-            Toastr::success('Success add about', 'Notification');
+            Toastr::success('Success add about', 'Notification',  ["positionClass" => "toast-bottom-right"]);
 
             return redirect('/admin/skill/');
         } else {
-            Toastr::danger('Failed add about', 'Notification');
+            Toastr::danger('Failed add about', 'Notification',  ["positionClass" => "toast-bottom-right"]);
 
             return redirect('/admin/skill/');
         }
@@ -106,7 +108,7 @@ class SkillController extends Controller
         $validated = $request->validate([
             'name' => 'min:3|max:255',
             'tag_id' => 'not_in:0|integer',
-            'link' => 'unique:skills|max:255',
+            'link' => 'max:255',
             'img' => 'mimes:jpg,jpeg,png,svg'
         ]);
 
@@ -115,14 +117,15 @@ class SkillController extends Controller
                 'name' => $request->name,
                 'tag_id' => $request->tag_id,
                 'link' => $request->link,
+                'user_id' => Auth::user()->id,
             ]);
 
             if ($update) {
-                Toastr::success('Success update skill', 'Notification');
+                Toastr::success('Success update skill', 'Notification',  ["positionClass" => "toast-bottom-right"]);
 
                 return redirect('/admin/skill/');
             } else {
-                Toastr::danger('Failed update skill', 'Notification');
+                Toastr::danger('Failed update skill', 'Notification',  ["positionClass" => "toast-bottom-right"]);
 
                 return redirect('/admin/skill/');
             }
@@ -143,15 +146,16 @@ class SkillController extends Controller
                 'name' => $request->name,
                 'tag_id' => $request->tag_id,
                 'link' => $request->link,
-                'image' => $updateImg
+                'image' => $updateImg,
+                'user_id' => Auth::user()->id,
             ]);
 
             if ($update) {
-                Toastr::success('Success update skill', 'Notification');
+                Toastr::success('Success update skill', 'Notification',  ["positionClass" => "toast-bottom-right"]);
 
                 return redirect('/admin/skill/');
             } else {
-                Toastr::danger('Failed update skill', 'Notification');
+                Toastr::danger('Failed update skill', 'Notification',  ["positionClass" => "toast-bottom-right"]);
 
                 return redirect('/admin/skill/');
             }

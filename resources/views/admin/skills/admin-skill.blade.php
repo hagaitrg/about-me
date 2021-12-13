@@ -41,22 +41,24 @@
                             @foreach($skills as $index => $skill)
                             <tr>
                                 <td class="text-center">
-                                    {{$index+1}}
+                                    {{$index+1 ?? " "}}
                                 </td>
                                 <td>
-                                    {{$skill->name}}
+                                    {{$skill->name ?? " "}}
                                 </td>
-                                <td>{{$skill->tag->name}}</td>
+                                <td>{{$skill->tag->name ?? " "}}</td>
                                 <td>
-                                    <a href="{{$skill->link}}" class="font-weight-600" target="_blank">{{$skill->link}}</a>
+                                    <a href="{{$skill->link}}" class="font-weight-600" target="_blank">{{$skill->link ?? " "}}</a>
                                 </td>
                                 <td>
+                                    @if($skill)
                                     <form action="/admin/skill/delete-skill/{{$skill->id}}" method="POST">
                                         @CSRF
                                         @method('delete')
                                         <a class="btn btn-primary btn-action mr-1" href="/admin/skill/edit-skill/{{$skill->id}}" role="button"><i class="fas fa-pencil-alt"></i></a>
                                         <button class="btn btn-danger btn-action" type="submit"><i class="fas fa-trash"></i></button>
                                     </form>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach

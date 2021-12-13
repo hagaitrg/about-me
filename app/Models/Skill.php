@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Skill extends Model
 {
-    protected $fillable = ['name', 'image', 'link', 'tag_id',  'user_id'];
+    protected $fillable = ['name', 'image', 'link', 'tag_id', 'user_id'];
 
     public function tag()
     {
@@ -16,6 +16,6 @@ class Skill extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
