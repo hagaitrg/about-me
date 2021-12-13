@@ -17,9 +17,9 @@ class AboutController extends Controller
      */
     public function index()
     {
-        $abouts = About::all();
-
-        return view('admin.abouts.admin-about', compact('abouts'));
+        $id = Auth::user()->id;
+        $about = About::where('user_id', $id)->first();
+        return view('admin.abouts.admin-about', compact('about'));
     }
 
     /**
@@ -49,28 +49,37 @@ class AboutController extends Controller
             'img' => 'mimes:jpg,jpeg,png,svg'
         ]);
 
-        $img = time() . '.' . $request->img->extension();
+        $user = Auth::user();
+
+        if (About::where('user_id', $user->id)->get('image')->exists()) {
+            $imgAbout = About::where('user_id', $user->id)->get('image');
+            $img_path = public_path('img/uploads/projects/' . $imgAbout->image);
+
+            unlink($img_path);
+        }
+
+        $img = time() . $user->name . '-img.' . $request->img->extension();
 
         $request->img->move(public_path('img/uploads/abouts'), $img);
 
         $request->image = $img;
 
-        $about = About::create([
-            'name' => $request->name,
-            'email' => $request->email,
+        $about = About::where('user_id', $user->id)->updateOrCreate([
+            'name' => $user->name,
+            'email' => $user->email,
             'desc' => $request->desc,
             'phone' => $request->phone,
             'link' => $request->link,
             'image' => $img,
-            'user_id'=> Auth::user()->id;
+            'user_id' => $user->id,
         ]);
 
         if ($about) {
-            Toastr::success('Success add about', 'Notification');
+            Toastr::success('Success updateOrCreate about', 'Notification');
 
             return redirect('/admin/about/');
         } else {
-            Toastr::danger('Failed add about', 'Notification');
+            Toastr::danger('Failed updateOrCreate about', 'Notification');
 
             return redirect('/admin/about/');
         }
@@ -95,9 +104,6 @@ class AboutController extends Controller
      */
     public function edit($id)
     {
-        $about = About::find($id);
-
-        return view('admin.abouts.edit-about', compact('about'));
     }
 
     /**
@@ -109,62 +115,6 @@ class AboutController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'name' => 'min:3|max:255',
-            'email' => 'unique:abouts|max:255',
-            'desc' => 'max:255',
-            'phone' => 'min:12|unique:abouts',
-            'link' => 'unique:abouts|max:255',
-            'img' => 'mimes:jpg,jpeg,png,svg'
-        ]);
-
-        if ($request->img == null) {
-            $update = About::where('id', $id)->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'desc' => $request->desc,
-                'phone' => $request->phone,
-                'link' => $request->link,
-            ]);
-
-            if ($update) {
-                Toastr::success('Success update about', 'Notification');
-
-                return redirect('/admin/about/');
-            } else {
-                Toastr::danger('Failed update about', 'Notification');
-
-                return redirect('/admin/about/');
-            }
-        } else {
-            $about = About::find($id);
-            $img_path = public_path('img/uploads/abouts/' . $about->image);
-            unlink($img_path);
-            $updateImg = time() . '.' . $request->img->extension();
-
-            $request->img->move(public_path('img/uploads/abouts'), $updateImg);
-
-            $request->image = $updateImg;
-
-            $update = $about->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'desc' => $request->desc,
-                'phone' => $request->phone,
-                'link' => $request->link,
-                'image' => $updateImg
-            ]);
-
-            if ($update) {
-                Toastr::success('Success update about', 'Notification');
-
-                return redirect('/admin/about/');
-            } else {
-                Toastr::danger('Failed update about', 'Notification');
-
-                return redirect('/admin/about/');
-            }
-        }
     }
 
     /**

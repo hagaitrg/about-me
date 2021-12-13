@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class CV extends Model
 {
 
-    protected $fillable = ['name', 'file'];
+    protected $fillable = ['name', 'file', 'user_id'];
 
     use HasFactory;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

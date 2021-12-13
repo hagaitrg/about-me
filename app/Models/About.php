@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class About extends Model
 {
-    protected $fillable = ['name', 'image', 'desc', 'email', 'phone', 'link'];
+    protected $fillable = ['name', 'image', 'desc', 'email', 'phone', 'link', 'user_id'];
 
     use HasFactory;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

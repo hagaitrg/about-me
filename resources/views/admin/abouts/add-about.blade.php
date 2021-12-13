@@ -29,15 +29,15 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" name="name">
+                        <input type="text" class="form-control" name="name" value="{{Auth::user()->name}}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" name="email" value="{{Auth::user()->email}}" readonly>
                     </div>
                     <div class="form-group">
                         <label>Description</label>
                         <textarea class="form-control" style="height: 100px;" name="desc"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" class="form-control" name="email">
                     </div>
                     <div class="form-group">
                         <label>Phone Number</label>

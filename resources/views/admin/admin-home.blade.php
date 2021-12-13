@@ -73,7 +73,6 @@
                 <h4>About Me</h4>
             </div>
             <div class="card-body">
-                @foreach($abouts as $index => $about)
                 <div class="row d-flex justify-content-center mb-3">
                     <img src="{{ asset('img/uploads/abouts/'. $about->image) }}" class="position-relative z-index-2 rounded-circle shadow" width="150" height="150" alt="profile-image">
                 </div>
@@ -85,7 +84,6 @@
                     {{$about->desc}}
                         </p>
                     </div>
-                    @endforeach
                 </div>
             </div>
         </div>

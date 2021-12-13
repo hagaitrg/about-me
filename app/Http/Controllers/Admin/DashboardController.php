@@ -19,11 +19,11 @@ class DashboardController extends Controller
     {
         $totalProjects = Project::count();
         $totalSkills = Skill::count();
-        $abouts = About::all();
+        $about = About::first();
         $projects = Project::all();
         $skills = Skill::all();
 
-        return view('admin.admin-home', compact('totalProjects', 'totalSkills', 'abouts', 'projects', 'skills'));
+        return view('admin.admin-home', compact('totalProjects', 'totalSkills', 'about', 'projects', 'skills'));
     }
 
     /**

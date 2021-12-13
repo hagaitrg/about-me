@@ -19,75 +19,75 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('main')->group(function () {
-    Route::get('/', [MainController::class, 'index']);
-});
+Route::get('/', [MainController::class, 'index']);
 
-Route::prefix('admin')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('admin-home');
+Route::middleware('auth')->group(function () {
+    Route::prefix('admin')->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('admin-home');
 
-    Route::prefix('about')->group(function () {
-        Route::get('/', [AboutController::class, 'index'])->name('admin-about');
+        Route::prefix('about')->group(function () {
+            Route::get('/', [AboutController::class, 'index'])->name('admin-about');
 
-        Route::get('/add-about', function () {
-            return view('admin.abouts.add-about');
-        })->name('add-about');
+            Route::get('/add-about', function () {
+                return view('admin.abouts.add-about');
+            })->name('add-about');
 
-        Route::post('/store-about', [AboutController::class, 'store']);
+            Route::post('/store-about', [AboutController::class, 'store']);
 
-        Route::get('/edit-about/{id}', [AboutController::class, 'edit']);
+            Route::get('/edit-about/{id}', [AboutController::class, 'edit']);
 
-        Route::patch('/update-about/{id}', [AboutController::class, 'update']);
+            Route::patch('/update-about/{id}', [AboutController::class, 'update']);
 
-        Route::delete('/delete-about/{id}', [AboutController::class, 'destroy']);
-    });
+            Route::delete('/delete-about/{id}', [AboutController::class, 'destroy']);
+        });
 
-    Route::prefix('skill')->group(function () {
-        Route::get('/', [SkillController::class, 'index'])->name('admin-skill');
+        Route::prefix('skill')->group(function () {
+            Route::get('/', [SkillController::class, 'index'])->name('admin-skill');
 
-        Route::get('/add-skill', function () {
-            return view('admin.skills.add-skill');
-        })->name('add-skill');
+            Route::get('/add-skill', function () {
+                return view('admin.skills.add-skill');
+            })->name('add-skill');
 
-        Route::post('/store-skill', [SkillController::class, 'store']);
+            Route::post('/store-skill', [SkillController::class, 'store']);
 
-        Route::get('/edit-skill/{id}', [SkillController::class, 'edit']);
+            Route::get('/edit-skill/{id}', [SkillController::class, 'edit']);
 
-        Route::patch('/update-skill/{id}', [SkillController::class, 'update']);
+            Route::patch('/update-skill/{id}', [SkillController::class, 'update']);
 
-        Route::delete('/delete-skill/{id}', [SkillController::class, 'destroy']);
-    });
+            Route::delete('/delete-skill/{id}', [SkillController::class, 'destroy']);
+        });
 
-    Route::prefix('project')->group(function () {
-        Route::get('/', [ProjectController::class, 'index'])->name('admin-project');
+        Route::prefix('project')->group(function () {
+            Route::get('/', [ProjectController::class, 'index'])->name('admin-project');
 
-        Route::get('/add-project', function () {
-            return view('admin.projects.add-project');
-        })->name('add-project');
+            Route::get('/add-project', function () {
+                return view('admin.projects.add-project');
+            })->name('add-project');
 
-        Route::post('/store-project', [ProjectController::class, 'store']);
+            Route::post('/store-project', [ProjectController::class, 'store']);
 
-        Route::get('/edit-project/{id}', [ProjectController::class, 'edit']);
+            Route::get('/edit-project/{id}', [ProjectController::class, 'edit']);
 
-        Route::patch('/update-project/{id}', [ProjectController::class, 'update']);
+            Route::patch('/update-project/{id}', [ProjectController::class, 'update']);
 
-        Route::delete('/delete-project/{id}', [ProjectController::class, 'destroy']);
-    });
+            Route::delete('/delete-project/{id}', [ProjectController::class, 'destroy']);
+        });
 
-    Route::prefix('cv')->group(function () {
-        Route::get('/', [CvController::class, 'index'])->name('admin-cv');
+        Route::prefix('cv')->group(function () {
+            Route::get('/', [CvController::class, 'index'])->name('admin-cv');
 
-        Route::get('/add-cv', function () {
-            return view('admin.cv.add-cv');
-        })->name('add-cv');
+            Route::get('/add-cv', function () {
+                return view('admin.cv.add-cv');
+            })->name('add-cv');
 
-        Route::post('/store-cv', [CvController::class, 'store']);
+            Route::post('/store-cv', [CvController::class, 'store']);
 
-        Route::get('/edit-cv/{id}', [CvController::class, 'edit']);
+            Route::get('/edit-cv/{id}', [CvController::class, 'edit']);
 
-        Route::patch('/update-cv/{id}', [CvController::class, 'update']);
+            Route::patch('/update-cv/{id}', [CvController::class, 'update']);
 
-        Route::delete('/delete-cv/{id}', [CvController::class, 'destroy']);
+            Route::delete('/delete-cv/{id}', [CvController::class, 'destroy']);
+        });
     });
 });
 

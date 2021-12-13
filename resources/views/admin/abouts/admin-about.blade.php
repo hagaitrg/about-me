@@ -14,60 +14,45 @@
             <div class="card-header">
                 <h4>About Me Data</h4>
                 <div class="card-header-form">
-                    <form>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                            </div>
-                        </div>
-                    </form>
+                    <a href="{{ route('add-about') }}" class="btn btn-icon icon-left btn-warning mb-3"><i class="fas fa-pencil-alt"></i></a>
                 </div>
             </div>
             <div class="card-body">
-                <a href="{{ route('add-about') }}" class="btn btn-icon icon-left btn-success mb-3"><i class="fas fa-plus"></i> Add Data</a>
                 <div class="table-responsive">
                     <table class="table table-striped mb-0" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Link</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
                         <tbody>
-                            @foreach($abouts as $index => $about)
                             <tr>
-                                <td class="text-center">
-                                    {{$index+1}}
-                                </td>
+                                <th>Name</th>
                                 <td>{{$about->name}}</td>
-                                <td>
-                                    {{$about->desc}}
-                                </td>
-                                <td>
-                                    {{$about->email}}
-                                </td>
+                            </tr>
+                            <tr>
+                                <th>Description</th>
+                                <td>{{$about->desc}}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{$about->email}}</td>
+                            </tr>
+                            <tr>
+                                <th>Phone</th>
                                 <td>
                                     {{$about->phone}}
                                 </td>
-                                <td>
-                                    <a href="{{$about->link}}" class="font-weight-600" target="_blank">{{$about->link}}</a>
-                                </td>
+                            </tr>
+                            <tr>
+                                <th>Link</th>
+                                <td>{{$about->link}}</td>
+                            </tr>
+                            <tr>
+                                <th>Action</th>
                                 <td>
                                     <form action="/admin/about/delete-about/{{$about->id}}" method="POST">
                                         @CSRF
                                         @method('delete')
-                                        <a class="btn btn-primary btn-action mr-1" href="/admin/about/edit-about/{{$about->id}}" role="button"><i class="fas fa-pencil-alt"></i></a>
                                         <button class="btn btn-danger btn-action" type="submit"><i class="fas fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>
-                            @endforeach
                     </table>
                 </div>
             </div>
