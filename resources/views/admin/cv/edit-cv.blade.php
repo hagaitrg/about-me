@@ -21,8 +21,7 @@
                 </ul>
             </div>
             @endif
-            <form enctype="multipart/form-data" method="POST" action="/admin/cv/update-cv/{{$cv->id}}">
-                @method('patch')
+            <form enctype="multipart/form-data" method="POST" action="/admin/cv/store-cv">
                 @CSRF
                 <div class="card-header">
                     <h4>Add My CV</h4>
@@ -30,14 +29,14 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" name="name" value="{{$cv->name}}">
+                        <input type="text" class="form-control" name="name" value="{{Auth::user()->name}}" readonly>
                     </div>
                     <div class="jumbotron text-center">
                         <h2>Upload CV</h2>
                         <p class="lead text-muted mt-3">upload your cv so the recruitment team can read in more detail your experience, skills, and portfolio history documents </p>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFile" name="file">
-                            <label class="custom-file-label" for="customFile">{{$cv->file}}</label>
+                            <input type="file" class="custom-file-input" id="customFile" name="file" value="{{$cv->file ?? ''}}">
+                            <label class="custom-file-label" for="customFile">{{$cv->file ?? ''}}</label>
                         </div>
                     </div>
                     <div class="card-footer text-right">

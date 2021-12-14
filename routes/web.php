@@ -80,9 +80,7 @@ Route::middleware('auth')->group(function () {
 
             Route::post('/store-cv', [CvController::class, 'store']);
 
-            Route::get('/edit-cv/{id}', [CvController::class, 'edit']);
-
-            Route::patch('/update-cv/{id}', [CvController::class, 'update']);
+            Route::get('/edit-cv', [CvController::class, 'edit'])->name('edit-cv');
 
             Route::delete('/delete-cv/{id}', [CvController::class, 'destroy']);
         });

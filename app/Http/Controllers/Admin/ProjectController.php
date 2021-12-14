@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -16,7 +17,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::where('user_id', Auth::user()->id)->get();
 
         return view('admin.projects.admin-projects', compact('projects'));
     }
@@ -46,7 +47,7 @@ class ProjectController extends Controller
             'img' => 'mimes:jpg,jpeg,png,svg'
         ]);
 
-        $img = $request->name . '-img' . '.' . $request->img->extension();
+        $img = $request->name . '-project' . '-img' . '.' . $request->img->extension();
 
         $request->img->move(public_path('img/uploads/projects'), $img);
 
@@ -56,15 +57,16 @@ class ProjectController extends Controller
             'name' => $request->name,
             'desc' => $request->desc,
             'link' => $request->link,
-            'image' => $img
+            'image' => $img,
+            'user_id' => Auth::user()->id,
         ]);
 
         if ($project) {
-            Toastr::success('Success add project', 'Notification');
+            Toastr::success('Success add project', 'Notification', ["positionClass" => "toast-bottom-right"]);
 
             return redirect('/admin/project/');
         } else {
-            Toastr::danger('Failed add project', 'Notification');
+            Toastr::danger('Failed add project', 'Notification', ["positionClass" => "toast-bottom-right"]);
 
             return redirect('/admin/project/');
         }
@@ -106,7 +108,7 @@ class ProjectController extends Controller
         $validated = $request->validate([
             'name' => 'required|min:1',
             'desc' => 'required|max:255',
-            'link' => 'required|unique:projects|max:255',
+            'link' => 'required|max:255',
             'img' => 'mimes:jpg,jpeg,png,svg'
         ]);
 
@@ -115,14 +117,15 @@ class ProjectController extends Controller
                 'name' => $request->name,
                 'desc' => $request->desc,
                 'link' => $request->link,
+                'user_id' => Auth::user()->id,
             ]);
 
             if ($update) {
-                Toastr::success('Success update project', 'Notification');
+                Toastr::success('Success update project', 'Notification', ["positionClass" => "toast-bottom-right"]);
 
                 return redirect('/admin/project/');
             } else {
-                Toastr::danger('Failed update project', 'Notification');
+                Toastr::danger('Failed update project', 'Notification', ["positionClass" => "toast-bottom-right"]);
 
                 return redirect('/admin/project/');
             }
@@ -143,15 +146,16 @@ class ProjectController extends Controller
                 'name' => $request->name,
                 'desc' => $request->desc,
                 'link' => $request->link,
-                'image' => $updateImg
+                'image' => $updateImg,
+                'user_id' => Auth::user()->id,
             ]);
 
             if ($update) {
-                Toastr::success('Success update project', 'Notification');
+                Toastr::success('Success update project', 'Notification', ["positionClass" => "toast-bottom-right"]);
 
                 return redirect('/admin/project/');
             } else {
-                Toastr::danger('Failed update project', 'Notification');
+                Toastr::danger('Failed update project', 'Notification', ["positionClass" => "toast-bottom-right"]);
 
                 return redirect('/admin/project/');
             }
@@ -175,11 +179,11 @@ class ProjectController extends Controller
             unlink($img_path);
             $project->delete();
 
-            Toastr::success('Success delete project', 'Notification');
+            Toastr::success('Success delete project', 'Notification', ["positionClass" => "toast-bottom-right"]);
 
             return redirect('/admin/project/');
         } else {
-            Toastr::danger('Failed delete project', 'Notification');
+            Toastr::danger('Failed delete project', 'Notification', ["positionClass" => "toast-bottom-right"]);
 
             return redirect('/admin/project/');
         }

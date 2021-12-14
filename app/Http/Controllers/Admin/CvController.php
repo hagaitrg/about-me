@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CV;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CvController extends Controller
 {
@@ -44,23 +45,37 @@ class CvController extends Controller
             'file' => 'required|mimes:pdf,doc,docx|max:2048'
         ]);
 
-        $file = $request->name  . '.' . $request->file->extension();
+        $user = Auth::user();
+
+        if (CV::where('user_id', $user->id)->get('file')->count() > 0) {
+            $cvFile = CV::where('user_id', $user->id)->value('file');
+            $file_path = public_path('docs/uploads/cvs/' . $cvFile);
+
+            unlink($file_path);
+        }
+
+        $file = $request->name  . '-CV.' . $request->file->extension();
 
         $request->file->move(public_path('docs/uploads/cvs'), $file);
 
         $request->file = $file;
 
-        $cv = CV::create([
-            'name' => $request->name,
-            'file' => $file
-        ]);
+        $cv = CV::updateOrCreate(
+            [
+                "user_id" => $user->id,
+            ],
+            [
+                'name' => $request->name,
+                'file' => $file,
+            ]
+        );
 
         if ($cv) {
-            Toastr::success('Success add cv', 'Notification');
+            Toastr::success('Success add cv', 'Notification', ["positionClass" => "toast-bottom-right"]);
 
             return redirect('/admin/cv/');
         } else {
-            Toastr::danger('Failed add cv', 'Notification');
+            Toastr::danger('Failed add cv', 'Notification', ["positionClass" => "toast-bottom-right"]);
 
             return redirect('/admin/cv/');
         }
@@ -83,9 +98,9 @@ class CvController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        $cv = CV::find($id);
+        $cv = CV::where('user_id', Auth::user()->id)->first();
 
         return view('admin.cv.edit-cv', compact('cv'));
     }
@@ -99,53 +114,6 @@ class CvController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'name' => 'min:3|max:255',
-            'file' => 'mimes:pdf,doc,docx|max:2048'
-        ]);
-
-        if ($request->file == null) {
-            $update = CV::where('id', $id)->update([
-                'name' => $request->name,
-            ]);
-
-            if ($update) {
-                Toastr::success('Success update cv', 'Notification');
-
-                return redirect('/admin/cv/');
-            } else {
-                Toastr::danger('Failed update cv', 'Notification');
-
-                return redirect('/admin/cv/');
-            }
-        } else {
-            $cv = CV::find($id);
-
-            $file_path = public_path('docs/uploads/cvs/' . $cv->file);
-
-            unlink($file_path);
-
-            $updateFile = $request->name . '.' . $request->file->extension();
-
-            $request->file->move(public_path('docs/uploads/cvs/'), $updateFile);
-
-            $request->image = $updateFile;
-
-            $update = $cv->update([
-                'name' => $request->name,
-                'file' => $updateFile
-            ]);
-
-            if ($update) {
-                Toastr::success('Success update cv', 'Notification');
-
-                return redirect('/admin/cv/');
-            } else {
-                Toastr::danger('Failed update cv', 'Notification');
-
-                return redirect('/admin/cv/');
-            }
-        }
     }
 
     /**
@@ -156,19 +124,22 @@ class CvController extends Controller
      */
     public function destroy($id)
     {
-        $cv = CV::find($id);
+
+        $user = Auth::user();
+        $cv = CV::where('user_id', $user->id);
 
         if ($cv) {
-            $file_path = public_path('docs/uploads/cvs/' . $cv->file);
+            $cvFile = $cv->value('file');
+            $file_path = public_path('docs/uploads/cvs/' . $cvFile);
 
             unlink($file_path);
             $cv->delete();
 
-            Toastr::success('Success delete cv', 'Notification');
+            Toastr::success('Success delete cv', 'Notification', ["positionClass" => "toast-bottom-right"]);
 
             return redirect('/admin/cv/');
         } else {
-            Toastr::success('Failed delete cv', 'Notification');
+            Toastr::success('Failed delete cv', 'Notification', ["positionClass" => "toast-bottom-right"]);
 
             return redirect('/admin/cv/');
         }

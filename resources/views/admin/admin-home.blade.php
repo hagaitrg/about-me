@@ -133,7 +133,7 @@
                             <div class="row">
                                 @foreach($skills as $index => $skill)
                                 <div class="col text-center">
-                                    <div class="browser browser-chrome"></div>
+                                    <img src="{{ asset('img/uploads/skills/'. $skill->image) }}" class="position-relative z-index-2 mt-3" width="100" height="100" alt="profile-image">
                                     <div class="mt-2 font-weight-bold">{{$skill->name}}</div>
                                 </div>
                                 @endforeach
