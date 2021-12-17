@@ -1,16 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Main;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\About;
-use App\Models\Message;
-use App\Models\Project;
-use App\Models\Skill;
-use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 
-class MainController extends Controller
+class MessageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,16 +14,7 @@ class MainController extends Controller
      */
     public function index()
     {
-        $abouts = About::first();
-        $webDev = Skill::where('tag_id', 1)->get();
-        $framework = Skill::where('tag_id', 2)->get();
-        $db = Skill::where('tag_id', 3)->get();
-        $vcs = Skill::where('tag_id', 4)->get();
-        $projects = Project::all();
-
-        // dd($webDev, $framework, $db, $vcs);
-
-        return view('main.index', compact('abouts', 'webDev', 'framework', 'db', 'vcs', 'projects'));
+        //
     }
 
     /**
@@ -47,29 +33,9 @@ class MainController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeMessage(Request $request)
+    public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|min:6',
-            'subject' => 'required|min:6',
-            'message' => 'required|max:255',
-        ]);
-
-        $message = Message::create([
-            'name' => $request->name,
-            'subject' => $request->subject,
-            'message' => $request->message,
-        ]);
-
-        if ($message) {
-            Toastr::success('Success add message', 'Notification', ["positionClass" => "toast-bottom-right"]);
-
-            return redirect('/');
-        } else {
-            Toastr::error('Failed add message', 'Notification', ["positionClass" => "toast-bottom-right"]);
-
-            return redirect('/');
-        }
+        //
     }
 
     /**

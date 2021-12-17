@@ -20,7 +20,8 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="{{ asset('css/material-kit.css?v=3.0.0') }}" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
-  @livewireStyles
+
+  <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 </head>
 
 <body class="blog-author bg-gray-200">
@@ -55,7 +56,9 @@
   <!--  Google Maps Plugin    -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
   <script src="{{ asset('js/material-kit.min.js?v=3.0.0') }}" type="text/javascript"></script>
-  @livewireScripts
+  <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+
+  {!! Toastr::message() !!}
 </body>
 
 </html>

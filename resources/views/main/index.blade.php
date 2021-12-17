@@ -40,8 +40,8 @@
                 </div>
             </div>
             <div class="row">
-                @foreach($skills as $skill)
-                <h4 class="mb-3 text-light">{{$skill->tag->name}}</h4>
+                <h4 class="mb-3 text-light">Web Development</h4>
+                @foreach($webDev as $skill)
                 <div class="col-lg-3 col-12 mb-3">
                     <div class="card card-profile">
                         <div class="row">
@@ -64,138 +64,72 @@
             </div>
             <div class="row">
                 <h4 class="mb-3 mt-5 text-light">Framework</h4>
+                @foreach($framework as $skill)
                 <div class="col-lg-3 col-12 mb-3">
                     <div class="card card-profile">
                         <div class="row">
                             <div class="col-lg-3 col-md-3 col-3">
-                                <a href="https://getbootstrap.com/" target="_blank">
+                                <a href="{{$skill->link}}" target="_blank">
                                     <div class="p-3 pe-md-0">
-                                        <img class="border-radius-md" src="{{ asset('img/bootstrap.png') }}" width="50" height="50" alt="image">
+                                        <img class="border-radius-md" src="{{ asset('img/uploads/skills/'. $skill->image) }}" width="50" height="50" alt="image">
                                     </div>
                                 </a>
                             </div>
                             <div class="col-lg-9 col-md-9 col-9 my-auto">
                                 <div class="card-body ps-lg-0">
-                                    <h5 class="mb-0">Bootstrap</h5>
+                                    <h5 class="mb-0">{{$skill->name}}</h5>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-12 mb-3">
-                    <div class="card card-profile">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-3 col-3">
-                                <a href="https://laravel.com/" target="_blank">
-                                    <div class="p-3 pe-md-0">
-                                        <img class=" border-radius-md" src="{{ asset('img/laravel.png') }}" width="50" height="50" alt="image">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-lg-9 col-md-9 col-9 my-auto">
-                                <div class="card-body ps-lg-0">
-                                    <h5 class="mb-0">Laravel</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-12 mb-3">
-                    <div class="card card-profile">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-3 col-3">
-                                <a href="https://expressjs.com/" target="_blank">
-                                    <div class="p-3 pe-md-0">
-                                        <img class=" border-radius-md" src="{{ asset('img/expressjs.png') }}" width="50" height="50" alt="image">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-lg-9 col-md-9 col-9 my-auto">
-                                <div class="card-body ps-lg-0">
-                                    <h5 class="mb-0">Express JS</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <div class="row">
                 <h4 class="mb-3 mt-5 text-light">Database</h4>
+                @foreach($db as $skill)
                 <div class="col-lg-3 col-12 mb-3">
                     <div class="card card-profile">
                         <div class="row">
                             <div class="col-lg-3 col-md-3 col-3">
-                                <a href="https://www.mysql.com/" target="_blank">
+                                <a href="{{$skill->link}}" target="_blank">
                                     <div class="p-3 pe-md-0">
-                                        <img class="border-radius-md" src="{{ asset('img/mysql.png') }}" width="50" height="50" alt="image">
+                                        <img class="border-radius-md" src="{{ asset('img/uploads/skills/'. $skill->image) }}" width="50" height="50" alt="image">
                                     </div>
                                 </a>
                             </div>
                             <div class="col-lg-9 col-md-9 col-9 my-auto">
                                 <div class="card-body ps-lg-0">
-                                    <h5 class="mb-0">MySQL</h5>
+                                    <h5 class="mb-0">{{$skill->name}}</h5>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-12 mb-3">
-                    <div class="card card-profile">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-3 col-3">
-                                <a href="https://www.mongodb.com/" target="_blank">
-                                    <div class="p-3 pe-md-0">
-                                        <img class=" border-radius-md" src="{{ asset('img/mongodb.png') }}" width="50" height="50" alt="image">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-lg-9 col-md-9 col-9 my-auto">
-                                <div class="card-body ps-lg-0">
-                                    <h5 class="mb-0">Mongo DB</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <div class="row">
                 <h4 class="mb-3 mt-5 text-light">Version Control System</h4>
+                @foreach($vcs as $skill)
                 <div class="col-lg-3 col-12 mb-3">
                     <div class="card card-profile">
                         <div class="row">
                             <div class="col-lg-3 col-md-3 col-3">
-                                <a href="https://git-scm.com/" target="_blank">
+                                <a href="{{$skill->link}}" target="_blank">
                                     <div class="p-3 pe-md-0">
-                                        <img class="border-radius-md" src="{{ asset('img/git.png') }}" width="50" height="50" alt="image">
+                                        <img class="border-radius-md" src="{{ asset('img/uploads/skills/'. $skill->image) }}" width="50" height="50" alt="image">
                                     </div>
                                 </a>
                             </div>
                             <div class="col-lg-9 col-md-9 col-9 my-auto">
                                 <div class="card-body ps-lg-0">
-                                    <h5 class="mb-0">Git</h5>
+                                    <h5 class="mb-0">{{$skill->name}}</h5>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-12 mb-3">
-                    <div class="card card-profile">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-3 col-3">
-                                <a href="https://github.com/" target="_blank">
-                                    <div class="p-3 pe-md-0">
-                                        <img class=" border-radius-md" src="{{ asset('img/github.png') }}" width="50" height="50" alt="image">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-lg-9 col-md-9 col-9 my-auto">
-                                <div class="card-body ps-lg-0">
-                                    <h5 class="mb-0">Github</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -253,7 +187,7 @@
                                             <i class="fab fa-whatsapp text-sm"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <span class="text-sm opacity-8">(+62) 822 9316 2500</span>
+                                            <span class="text-sm opacity-8">{{$abouts->phone}}</span>
                                         </div>
                                     </div>
                                     <div class="d-flex p-2 text-white">
@@ -261,7 +195,7 @@
                                             <i class="fas fa-envelope text-sm"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <span class="text-sm opacity-8">disahagait@gmail.com</span>
+                                            <span class="text-sm opacity-8">{{$abouts->email}}</span>
                                         </div>
                                     </div>
                                     <div class="mt-4">
@@ -282,7 +216,8 @@
                             </div>
                         </div>
                         <div class="col-lg-7">
-                            <form class="p-3" id="contact-form" method="post">
+                            <form class="p-3" id="contact-form" action="{{ route('send-message') }}" method="POST">
+                                @CSRF
                                 <div class="card-header px-4 py-sm-5 py-3">
                                     <h2>Wanna Hire Me ?</h2>
                                     <p class="lead"> I'd like to talk with you.</p>
@@ -292,19 +227,19 @@
                                         <div class="col-md-12 pe-2 mb-3">
                                             <div class="input-group input-group-static mb-4">
                                                 <label>Name</label>
-                                                <input type="text" class="form-control" placeholder="Full Name">
+                                                <input type="text" class="form-control" placeholder="Full Name" name="name">
                                             </div>
                                         </div>
                                         <div class="col-md-12 pe-2 mb-3">
                                             <div class="input-group input-group-static mb-4">
                                                 <label>Subject</label>
-                                                <input type="text" class="form-control" placeholder="My Subject">
+                                                <input type="text" class="form-control" placeholder="My Subject" name="subject">
                                             </div>
                                         </div>
                                         <div class="col-md-12 pe-2 mb-3">
                                             <div class="input-group input-group-static mb-4">
                                                 <label>Message</label>
-                                                <textarea name="message" class="form-control" id="message" rows="6" placeholder="I want to say that..."></textarea>
+                                                <textarea name="message" class="form-control" id="message" rows="6" placeholder="I want to say that..." name="message"></textarea>
                                             </div>
                                         </div>
                                     </div>

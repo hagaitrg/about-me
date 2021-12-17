@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CvController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\SkillController;
+use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Main\MainController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [MainController::class, 'index']);
+
+Route::post('/send-message', [MainController::class, 'storeMessage'])->name('send-message');
 
 Route::middleware('auth')->group(function () {
     Route::prefix('admin')->group(function () {
