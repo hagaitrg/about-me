@@ -53,12 +53,14 @@ class MainController extends Controller
             'name' => 'required|min:6',
             'subject' => 'required|min:6',
             'message' => 'required|max:255',
+            'user_id' => 'required|integer'
         ]);
 
         $message = Message::create([
             'name' => $request->name,
             'subject' => $request->subject,
             'message' => $request->message,
+            'user_id' => $request->user_id
         ]);
 
         if ($message) {

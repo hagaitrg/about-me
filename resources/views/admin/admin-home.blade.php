@@ -60,7 +60,7 @@
                     <h4>Messages</h4>
                 </div>
                 <div class="card-body">
-                    47
+                    {{$totalMessages}}
                 </div>
             </div>
         </div>
@@ -151,22 +151,15 @@
                         </div>
                         <div class="card-body">
                             <ul class="list-unstyled list-unstyled-border">
+                                @foreach($message as $m)
                                 <li class="media">
-                                    <img class="mr-3 rounded-circle" width="50" src="../assets/img/avatar/avatar-4.png" alt="avatar">
                                     <div class="media-body">
                                         <div class="badge badge-pill badge-danger mb-1 float-right">Unread</div>
-                                        <h6 class="media-title"><a href="#">Redesign header</a></h6>
-                                        <div class="text-small text-muted">Alfa Zulkarnain</div>
+                                        <h6 class="media-title"><a href="#">{{$m->name}}</a></h6>
+                                        <div class="text-small text-muted">{{$m->subject}}</div>
                                     </div>
                                 </li>
-                                <li class="media">
-                                    <img class="mr-3 rounded-circle" width="50" src="../assets/img/avatar/avatar-5.png" alt="avatar">
-                                    <div class="media-body">
-                                        <div class="badge badge-pill badge-success mb-1 float-right">Read</div>
-                                        <h6 class="media-title"><a href="#">Add a new component</a></h6>
-                                        <div class="text-small text-muted">Serj Tankian</div>
-                                    </div>
-                                </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>

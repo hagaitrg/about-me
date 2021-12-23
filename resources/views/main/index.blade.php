@@ -221,6 +221,7 @@
                                 <div class="card-header px-4 py-sm-5 py-3">
                                     <h2>Wanna Hire Me ?</h2>
                                     <p class="lead"> I'd like to talk with you.</p>
+                                    <input type="hidden" value="{{$abouts->user_id}}" name="user_id">
                                 </div>
                                 <div class="card-body pt-1">
                                     <div class="row">

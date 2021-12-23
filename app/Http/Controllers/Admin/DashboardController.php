@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\About;
+use App\Models\Message;
 use App\Models\Project;
 use App\Models\Skill;
 use Illuminate\Http\Request;
@@ -20,11 +21,13 @@ class DashboardController extends Controller
     {
         $totalProjects = Project::where('user_id', Auth::user()->id)->count();
         $totalSkills = Skill::where('user_id', Auth::user()->id)->count();
+        $totalMessages = Message::where('user_id', Auth::user()->id)->count();
         $about = About::where('user_id', Auth::user()->id)->first();
         $projects = Project::where('user_id', Auth::user()->id)->get();
         $skills = Skill::where('user_id', Auth::user()->id)->get();
+        $message = Message::where('user_id', Auth::user()->id)->get();
 
-        return view('admin.admin-home', compact('totalProjects', 'totalSkills', 'about', 'projects', 'skills'));
+        return view('admin.admin-home', compact('totalProjects', 'totalSkills', 'totalMessages', 'about', 'projects', 'skills', 'message'));
     }
 
     /**

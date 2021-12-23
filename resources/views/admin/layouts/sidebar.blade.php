@@ -22,7 +22,7 @@
             <a href="{{route('admin-cv')}}" class="nav-link"><i class="far fa-file-alt"></i><span>Curriculum Vitae</span></a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link"><i class="fas fa-inbox"></i><span>Message</span></a>
+            <a href="{{route('admin-message')}}" class="nav-link"><i class="fas fa-inbox"></i><span>Message</span></a>
         </li>
     </ul>
 </aside>

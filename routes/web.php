@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\CvController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Auth\UserController;
@@ -80,6 +81,16 @@ Route::middleware('auth')->group(function () {
             Route::get('/add-cv', function () {
                 return view('admin.cv.add-cv');
             })->name('add-cv');
+
+            Route::post('/store-cv', [CvController::class, 'store']);
+
+            Route::get('/edit-cv', [CvController::class, 'edit'])->name('edit-cv');
+
+            Route::delete('/delete-cv/{id}', [CvController::class, 'destroy']);
+        });
+
+        Route::prefix('message')->group(function () {
+            Route::get('/', [MessageController::class, 'index'])->name('admin-message');
 
             Route::post('/store-cv', [CvController::class, 'store']);
 
