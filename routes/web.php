@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\CvController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Auth\UserController;
@@ -97,6 +98,12 @@ Route::middleware('auth')->group(function () {
             Route::get('/edit-cv', [CvController::class, 'edit'])->name('edit-cv');
 
             Route::delete('/delete-cv/{id}', [CvController::class, 'destroy']);
+        });
+
+        Route::prefix('profile')->group(function () {
+            Route::get('/', [ProfileController::class, 'index'])->name('profile');
+
+            Route::post('/change-profile', [ProfileController::class, 'update'])->name('change-profile');
         });
     });
 });
